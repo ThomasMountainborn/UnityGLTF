@@ -186,14 +186,10 @@ namespace UnityGLTF
 			get { return settings.BakeSkinnedMeshes; }
 			set { settings.BakeSkinnedMeshes = value; }
 		}
-
-#if UNITY_EDITOR
 		public static string SaveFolderPath
 		{
-			get { return settings.SaveFolderPath; }
-			set { settings.SaveFolderPath = value; }
+            get; set;
 		}
-#endif
 
 		private static int AnimationBakingFramerate = 30; // FPS
 		private static bool BakeAnimationData = true;
