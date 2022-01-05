@@ -67,7 +67,7 @@ namespace UnityGLTF
 
 	    [Header("Export Settings")]
 		[SerializeField]
-		private bool exportNames = true;
+		private bool exportNames = false;
 		[SerializeField]
 		private bool exportFullPath = true;
 		[SerializeField]
@@ -75,7 +75,7 @@ namespace UnityGLTF
 		[Header("Export Visibility")]
 		[SerializeField]
 		[Tooltip("Uses Camera.main layer settings to filter which objects are exported")]
-		private bool useMainCameraVisibility = true;
+		private bool useMainCameraVisibility = false;
 		[SerializeField]
 		[Tooltip("glTF does not support visibility state. If this setting is true, disabled GameObjects will still be exported and be visible in the glTF file.")]
 		private bool exportDisabledGameObjects = false;
