@@ -25,8 +25,7 @@ namespace UnityGLTF
         public IEnumerable<Animation> Animations { get; private set; }
 #endif
 
-		[SerializeField]
-		private bool loadOnStart = true;
+		public bool loadOnStart = true;
 
 		[SerializeField] private bool MaterialsOnly = false;
 
