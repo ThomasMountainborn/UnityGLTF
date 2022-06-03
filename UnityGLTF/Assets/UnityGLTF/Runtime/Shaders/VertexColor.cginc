@@ -70,9 +70,11 @@ half4 frag_vcol(WrappedVertexOutput wvo) : SV_Target
     half atten = UnityMixRealtimeAndBakedShadows(realtimeShadowAttenuation, shadowMaskAttenuation, 0);
 
     // Start: Modified section
+	#if _VERTEX_COLORS
     s.diffColor.x *= wvo.color.x;
     s.diffColor.y *= wvo.color.y;
     s.diffColor.z *= wvo.color.z;
+	#endif
     // End: Modified section
 
     half occlusion = Occlusion(i.tex.xy);
