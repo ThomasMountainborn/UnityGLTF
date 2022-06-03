@@ -52,7 +52,10 @@ Shader "GLTF/Unlit"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv) * _Color * i.color;
+                fixed4 col = tex2D(_MainTex, i.uv) * _Color;
+#if _VERTEX_COLORS
+            col *= i.color;
+#endif
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
