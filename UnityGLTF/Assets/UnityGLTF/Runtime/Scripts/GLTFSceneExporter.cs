@@ -758,7 +758,7 @@ namespace UnityGLTF
 			return filenamePath;
 		}
 
-		public void DeclareExtensionUsage(string extension, bool isRequired=false)
+		public void DeclareExtensionUsage(string extension, bool isRequired = false)
 		{
 			if (_root.ExtensionsUsed == null)
 			{
@@ -1445,21 +1445,21 @@ namespace UnityGLTF
 		{
 			_materials.Add(materialObj);
 
-	        var id = new MaterialId
-	        {
-		        Id = _root.Materials.Count,
-		        Root = _root
-	        };
-	        _root.Materials.Add(material);
+			var id = new MaterialId
+			{
+				Id = _root.Materials.Count,
+				Root = _root
+			};
+			_root.Materials.Add(material);
 
-	        // after material export
-	        _exportOptions.AfterMaterialExport?.Invoke(this, _root, materialObj, material);
-	        AfterMaterialExport?.Invoke(this, _root, materialObj, material);
+			// after material export
+			_exportOptions.AfterMaterialExport?.Invoke(this, _root, materialObj, material);
+			AfterMaterialExport?.Invoke(this, _root, materialObj, material);
 
-	        return id;
-        }
+			return id;
+		}
 
-        public MaterialId ExportMaterial(Material materialObj)
+		public MaterialId ExportMaterial(Material materialObj)
 		{
 			//TODO if material is null
 			MaterialId id = GetMaterialId(_root, materialObj);
@@ -1836,23 +1836,24 @@ namespace UnityGLTF
 			Vector2 offset = mat.GetTextureOffset(texName);
 			Vector2 scale = mat.GetTextureScale(texName);
 
-			if (offset == Vector2.zero && scale == Vector2.one)
-			{
-				if (mat.HasProperty("_MainTex_ST"))
-				{
-					// difficult choice here: some shaders might support texture transform per-texture, others use the main transform.
-					if (mat.HasProperty("_MainTex"))
-					{
-						offset = mat.mainTextureOffset;
-						scale = mat.mainTextureScale;
-					}
-				}
-				else
-				{
-					offset = Vector2.zero;
-					scale = Vector2.one;
-				}
-			}
+			// Use per texture scale.
+			//if (offset == Vector2.zero && scale == Vector2.one)
+			//{
+			//	if (mat.HasProperty("_MainTex_ST"))
+			//	{
+			//		// difficult choice here: some shaders might support texture transform per-texture, others use the main transform.
+			//		if (mat.HasProperty("_MainTex"))
+			//		{
+			//			offset = mat.mainTextureOffset;
+			//			scale = mat.mainTextureScale;
+			//		}
+			//	}
+			//	else
+			//	{
+			//		offset = Vector2.zero;
+			//		scale = Vector2.one;
+			//	}
+			//}
 
 			if (_root.ExtensionsUsed == null)
 			{
@@ -1927,7 +1928,7 @@ namespace UnityGLTF
 		public PbrMetallicRoughness ExportPBRMetallicRoughness(Material material)
 		{
 			var pbr = new PbrMetallicRoughness() { MetallicFactor = 0, RoughnessFactor = 1.0f };
-			var isGltfPbrMetallicRoughnessShader = material.shader.name.Equals("GLTF/PbrMetallicRoughness", StringComparison.Ordinal);
+			var isGltfPbrMetallicRoughnessShader = material.shader.name.Equals("GLTF/PbrMetallicRoughness", StringComparison.Ordinal) || material.shader.name.Equals("GLTF/Standard-Gltf", StringComparison.Ordinal);
 			var isGlTFastShader = material.shader.name.Equals("glTF/PbrMetallicRoughness", StringComparison.Ordinal);
 
 			if (material.HasProperty("_Color"))
