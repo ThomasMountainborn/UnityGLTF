@@ -1518,9 +1518,9 @@ namespace UnityGLTF
 			const string lightExt = KHR_lights_punctualExtensionFactory.EXTENSION_NAME;
 			KHR_LightsPunctualNodeExtension lightsExtension = null;
 			if (_gltfRoot.ExtensionsUsed != null
-			    && _gltfRoot.ExtensionsUsed.Contains(lightExt)
-			    && node.Extensions != null
-			    && node.Extensions.ContainsKey(lightExt))
+				&& _gltfRoot.ExtensionsUsed.Contains(lightExt)
+				&& node.Extensions != null
+				&& node.Extensions.ContainsKey(lightExt))
 			{
 				lightsExtension = node.Extensions[lightExt] as KHR_LightsPunctualNodeExtension;
 				var l = lightsExtension.LightId;
@@ -1543,15 +1543,15 @@ namespace UnityGLTF
 				}
 
 				newLight.name = light.Name;
-				newLight.intensity = (float) light.Intensity;
+				newLight.intensity = (float)light.Intensity;
 				newLight.color = new Color(light.Color.R, light.Color.G, light.Color.B, light.Color.A);
-				newLight.range = (float) light.Range;
-				if(light.Spot != null)
+				newLight.range = (float)light.Range;
+				if (light.Spot != null)
 				{
-					#if UNITY_2019_1_OR_NEWER
+#if UNITY_2019_1_OR_NEWER
 					newLight.innerSpotAngle = (float) light.Spot.InnerConeAngle * 2 / (Mathf.Deg2Rad * 0.8f);
-					#endif
-					newLight.spotAngle = (float) light.Spot.OuterConeAngle * 2 / Mathf.Deg2Rad;
+#endif
+					newLight.spotAngle = (float)light.Spot.OuterConeAngle * 2 / Mathf.Deg2Rad;
 				}
 
 				// flip?
@@ -2030,7 +2030,7 @@ namespace UnityGLTF
 			mapper.Material.name = def.Name;
 			mapper.AlphaMode = def.AlphaMode;
 			mapper.AlphaCutoff = def.AlphaCutoff;
-			mapper.DoubleSided = def.DoubleSided;
+			mapper.DoubleSided = def.DoubleSided && _gltfRoot.Asset.Generator == "UnityGLTF"; // Ignore double siding on anything but our own exports, since Blender exports are double sided by defaut.
 
 			var mrMapper = mapper as IMetalRoughUniformMap;
 			if (def.PbrMetallicRoughness != null && mrMapper != null)
