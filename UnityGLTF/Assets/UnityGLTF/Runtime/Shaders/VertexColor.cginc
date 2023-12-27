@@ -25,6 +25,7 @@ WrappedVertexOutput vert_vcol(appdata_full v)
 
     // Forward this call to the default vertBase
     VertexInput vi;
+    UNITY_INITIALIZE_OUTPUT(VertexInput, vi);
     vi.vertex = v.vertex;
     vi.normal = v.normal;
     vi.uv0 = v.texcoord;
